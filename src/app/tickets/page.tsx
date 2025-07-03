@@ -1,4 +1,4 @@
-import { initialTickets } from "@/db/data";
+import { initialTickets } from "@/src/data";
 import Link from "next/link";
 
 const TicketsPage = () => {
