@@ -19,3 +19,4 @@ const TicketPage = async ({params}: TicketPageProps ) => {
 }
 
 export default TicketPage;
+
