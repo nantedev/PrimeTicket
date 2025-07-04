@@ -13,7 +13,7 @@ const TicketsPage = () => {
       </div>
 
 
-      <div className="flex-1 flex flex-col items-center gap-y-5">
+      <div className="flex-1 flex flex-col items-center animate-fade-from-top gap-y-5">
         {initialTickets.map((ticket)=> 
         <div key={ticket.id} className="w-full max-w-[420px] bg-gray-700 p-4 rounded">
           <h3 className={clsx("text-lg font-semibold truncate", {
