@@ -29,7 +29,7 @@ export default function RootLayout({
             fixed left-0 right-0 top-0 z-20
             border-b bg-background/95 backdrop-blur
             w-full flex py-2.5 px-5 justify-between
-            "
+            shadow-lg"
           >
             <div className="text-lg bold"><Link href={homePath()}>Home</Link></div>
             <div className="text-sm underline"><Link href={ticketsPath()}>Tickets</Link></div>

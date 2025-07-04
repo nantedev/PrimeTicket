@@ -5,7 +5,7 @@ import Link from "next/link";
 const TicketsPage = () => {
   return (
     <div>
-      <h2 className="underline">All the ticket here:</h2>
+      <h2 className="underline">All the tickets here:</h2>
       {initialTickets.map((ticket)=> 
       <div key={ticket.id}>
         <h2 className="text-lg">{ticket.title}</h2>
