@@ -1,6 +1,5 @@
 import { initialTickets } from "@/src/data";
 import { ticketPath } from "@/src/paths";
-import clsx from "clsx";
 import Link from "next/link";
 import {
   Card,
@@ -9,8 +8,8 @@ import {
   CardTitle,
   CardContent,
 } from "@/src/components/ui/card"
-import { Separator } from "@/src/components/ui/separator";
 import { LucideCircleCheck, LucideFileText, LucidePencil } from "lucide-react";
+import { Heading } from "@/src/components/heading";
 
 
 
@@ -27,13 +26,9 @@ const TICKET_ICONS = {
 const TicketsPage = () => {
   return (
     <div className="flex-1 flex flex-col gap-y-10">
-      <div>
-        <h2 className="text-3xl font-bold tracking-tight">TicketsPage</h2>
-        <p className="text-sm text-muted-foreground">All your tickets. Zero hassle.</p>
-      </div>
 
-     <Separator />
-
+      <Heading title="TicketsPage" description="All your tickets. Zero hassle."/>
+      
       <div className="flex-1 flex flex-col items-center animate-fade-from-top gap-y-5">
         {initialTickets.map((ticket)=> 
         <Card 

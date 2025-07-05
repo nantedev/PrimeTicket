@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { ticketsPath } from "../paths";
+import { Heading } from "../components/heading";
 
 const HomePage = () => {
   return (
   <div className="flex-1 flex flex-col gap-y-10">
-    <div>
-      <h2 className="text-3xl font-bold tracking-tight">HomePage</h2>
-      <p className="text-sm text-muted-foreground">Your starting point. Every time.</p>
-    </div>
+    
+    <Heading title="HomePage" description="Your starting point. Every time."/>
+
     <div className="flex-1 flex flex-col items-center">
       <Link href={ticketsPath()} className="underline">Go there</Link>
     </div>
