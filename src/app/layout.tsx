@@ -4,6 +4,7 @@ import "./globals.css";
 import Link from "next/link";
 import { homePath, ticketsPath } from "../paths";
 import { buttonVariants } from "@/components/ui/button";
+import { ChartNoAxesGantt, Kanban } from "lucide-react";
 
 
 const inter = Inter({
@@ -32,8 +33,11 @@ export default function RootLayout({
             w-full flex py-2.5 px-5 justify-between
             shadow-lg"
           >
-            <div className="text-lg bold">
-                <Link href={homePath()} className={buttonVariants({variant: "outline"})}>Home</Link>
+            <div>
+                <Link href={homePath()} className={buttonVariants({variant: "ghost"})}>
+                  <Kanban />
+                  <h1 className="text-lg bold">TicketBounty</h1>
+                </Link>
             </div>
             <div className="text-sm">
               <Link href={ticketsPath()} className={buttonVariants({variant: "outline"})}>Tickets</Link>
