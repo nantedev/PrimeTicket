@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import { homePath, ticketsPath } from "../paths";
+import { Button, buttonVariants } from "@/components/ui/button";
 
 
 const inter = Inter({
@@ -31,8 +32,12 @@ export default function RootLayout({
             w-full flex py-2.5 px-5 justify-between
             shadow-lg"
           >
-            <div className="text-lg bold"><Link href={homePath()}>Home</Link></div>
-            <div className="text-sm underline"><Link href={ticketsPath()}>Tickets</Link></div>
+            <div className="text-lg bold">
+                <Link href={homePath()} className={buttonVariants({variant: "outline"})}>Home</Link>
+            </div>
+            <div className="text-sm underline">
+              <Link href={ticketsPath()} className={buttonVariants({variant: "outline"})}>Tickets</Link>
+            </div>
           </nav>
         </header>
         <main
