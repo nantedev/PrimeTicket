@@ -8,8 +8,8 @@ import {
   CardFooter,
   CardTitle,
   CardContent,
-} from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator";
+} from "@/src/components/ui/card"
+import { Separator } from "@/src/components/ui/separator";
 import { LucideCircleCheck, LucideFileText, LucidePencil } from "lucide-react";
 
 

@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import { homePath, ticketsPath } from "../paths";
-import { buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/src/components/ui/button";
 import { ChartNoAxesGantt, Kanban } from "lucide-react";
 
 
