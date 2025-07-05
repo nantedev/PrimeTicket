@@ -5,6 +5,7 @@ import Link from "next/link";
 import { homePath, ticketsPath } from "../paths";
 import { buttonVariants } from "@/src/components/ui/button";
 import { ChartNoAxesGantt, Kanban } from "lucide-react";
+import { Header } from "../components/header";
 
 
 const inter = Inter({
@@ -24,26 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <header>
-          <nav
-            className="
-            supports-backdrop-blur:bg-background/60
-            fixed left-0 right-0 top-0 z-20
-            border-b bg-background/95 backdrop-blur
-            w-full flex py-2.5 px-5 justify-between
-            shadow-lg"
-          >
-            <div>
-                <Link href={homePath()} className={buttonVariants({variant: "ghost"})}>
-                  <Kanban />
-                  <h1 className="text-lg bold">TicketBounty</h1>
-                </Link>
-            </div>
-            <div className="text-sm">
-              <Link href={ticketsPath()} className={buttonVariants({variant: "outline"})}>Tickets</Link>
-            </div>
-          </nav>
-        </header>
+        <Header />
         <main
           className="
             min-h-screen flex-1
