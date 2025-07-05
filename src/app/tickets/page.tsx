@@ -2,6 +2,14 @@ import { initialTickets } from "@/src/data";
 import { ticketPath } from "@/src/paths";
 import clsx from "clsx";
 import Link from "next/link";
+import {
+  Card,
+  CardHeader,
+  CardFooter,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/card"
+import { Separator } from "@radix-ui/react-separator";
 
 const CheckIcon = () => (
   <svg
@@ -72,21 +80,31 @@ const TicketsPage = () => {
         <p className="text-sm text-muted-foreground">All your tickets. Zero hassle.</p>
       </div>
 
+    <Separator />
 
       <div className="flex-1 flex flex-col items-center animate-fade-from-top gap-y-5">
         {initialTickets.map((ticket)=> 
-        <div key={ticket.id} className="w-full max-w-[420px] bg-slate-100 p-4 rounded">
-          <p>{TICKET_ICONS[ticket.status]}</p>
-          <h3 className={clsx("text-lg font-semibold truncate", {
-            "line-through": ticket.status === "DONE",
-          })}>
-            {ticket.title}
-          </h3>
-          <p className={clsx("text-sm truncate",{
-            "line-through": ticket.status === "DONE",
-          })}>{ticket.content}</p>
-          <Link href={ticketPath(ticket.id)} className="text-sm underline">View</Link>
-        </div> 
+        <Card 
+        key={ticket.id} 
+        className="w-full max-w-[420px]"
+        >
+        
+          <CardHeader>
+            <CardTitle className="flex gap-x-2">
+              <span>{TICKET_ICONS[ticket.status]}</span>
+              <span className="flex flex-col justify-center truncate">{ticket.title}</span>
+            </CardTitle>
+          </CardHeader>
+          
+          <CardContent>
+            <span>{ticket.content}</span>
+          </CardContent>
+
+          <CardFooter>
+            <Link href={ticketPath(ticket.id)} className="text-sm underline">View</Link>
+          </CardFooter>
+
+        </Card> 
         )}
       </div>
     </div>
