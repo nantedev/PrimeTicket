@@ -3,40 +3,47 @@ import Link from "next/link";
 import {
   Card,
   CardHeader,
-  CardFooter,
   CardTitle,
   CardContent,
 } from "@/src/components/ui/card"
 import { TICKET_ICONS } from "../../constants";
 import { Ticket } from "../../types";
+import { LucideSquareArrowOutUpRight } from "lucide-react";
+import { Button } from "@/src/components/ui/button";
 
 type TicketItemProps = {
     ticket: Ticket,
 }
 
-const TicketItem = ({ticket}: TicketItemProps) => {
-    return (
-    <Card 
-        key={ticket.id} 
-        className="w-full max-w-[420px]"
-        >
-        
-          <CardHeader>
-            <CardTitle className="flex gap-x-2">
-              <span>{TICKET_ICONS[ticket.status]}</span>
-              <span className="flex flex-col justify-center truncate">{ticket.title}</span>
-            </CardTitle>
-          </CardHeader>
-          
-          <CardContent>
-            <span>{ticket.content}</span>   
-          </CardContent>
-ù
-          <CardFooter>
-            <Link href={ticketPath(ticket.id)} className="text-sm underline">View</Link>
-          </CardFooter>
 
-    </Card> 
+
+const TicketItem = ({ticket}: TicketItemProps) => {
+    
+  const detailButton = (
+        <Button asChild variant="outline" size="icon">
+        <Link href={ticketPath(ticket.id)} className="text-sm underline">
+          <LucideSquareArrowOutUpRight className="h-4 w-4"/>
+        </Link>
+      </Button>
+  )
+
+    return (
+    <div className="w-full max-w-[420px] flex gap-x-1">
+      <Card key={ticket.id} className="w-full">
+            <CardHeader>
+              <CardTitle className="flex gap-x-2">
+                <span>{TICKET_ICONS[ticket.status]}</span>
+                <span className="flex flex-col justify-center truncate">{ticket.title}</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <span>{ticket.content}</span>   
+            </CardContent>
+      </Card>
+      <div className="flex flex-col gap-y-1">
+          {detailButton}
+      </div>
+    </div>
     )
 }
 
