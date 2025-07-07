@@ -20,7 +20,7 @@ const Header = () => {
                 </Link>
             </div>
             <div className="text-sm">
-              <Link href={ticketsPath()} className={buttonVariants({variant: "outline"})}>Tickets</Link>
+              <Link href={ticketsPath()} className={buttonVariants({variant: "default"})}>Tickets</Link>
             </div>
           </nav>       
     );
