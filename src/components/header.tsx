@@ -20,8 +20,8 @@ const Header = () => {
                   <h1 className="text-lg bold">TicketBounty</h1>
                 </Link>
             </div>
-            <ThemeSwitcher />
-            <div className="text-sm">
+            <div className="flex items-center gap-x-4">
+              <ThemeSwitcher />
               <Link href={ticketsPath()} className={buttonVariants({variant: "default"})}>Tickets</Link>
             </div>
           </nav>       
