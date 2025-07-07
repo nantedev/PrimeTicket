@@ -1,6 +1,6 @@
 import { homePath, ticketsPath } from "@/src/paths";
 import Link from "next/link";
-import { LucideKanban } from "lucide-react";
+import { LucideChartNoAxesCombined, LucideGem, LucideMedal } from "lucide-react";
 import { buttonVariants } from "./ui/button";
 import { ThemeSwitcher } from "./theme/theme-switcher";
 
@@ -14,13 +14,13 @@ const Header = () => {
             w-full flex py-2.5 px-5 justify-between
             shadow-lg"
           >
-            <div>
+            <div className="flex items-center gap-x-2" >
                 <Link href={homePath()} className={buttonVariants({variant: "ghost"})}>
-                  <LucideKanban />
-                  <h1 className="text-lg bold">TicketBounty</h1>
+                  <LucideGem/>
+                  <h1 className="text-lg bold">PrimeTicket</h1>
                 </Link>
             </div>
-            <div className="flex items-center gap-x-4">
+            <div className="flex items-center gap-x-2">
               <ThemeSwitcher />
               <Link href={ticketsPath()} className={buttonVariants({variant: "default"})}>Tickets</Link>
             </div>
