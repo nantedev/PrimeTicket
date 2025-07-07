@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
-import { homePath, ticketsPath } from "../paths";
-import { buttonVariants } from "@/src/components/ui/button";
-import { ChartNoAxesGantt, Kanban } from "lucide-react";
 import { Header } from "../components/header";
+import { ThemeProvider } from "../components/theme/theme-provider";
 
 
 const inter = Inter({
@@ -25,22 +22,24 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Header />
-        <main
-          className="
-            min-h-screen 
-            flex-1
-            overflow-y-auto 
-            overflow-x-hidden 
-            py-24 
-            px-8
-            bg-secondary/20
-            flex 
-            flex-col
-          "
-        >
-          {children}
-        </main>≈
+       <ThemeProvider>
+         <Header />
+         <main
+           className="
+             min-h-screen 
+             flex-1
+             overflow-y-auto 
+             overflow-x-hidden 
+             py-24 
+             px-8
+             bg-secondary/20
+             flex 
+             flex-col
+           "
+         >
+           {children}
+         </main>≈
+       </ThemeProvider>
       </body>
     </html>
   );
