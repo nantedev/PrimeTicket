@@ -1,6 +1,6 @@
 import { homePath, ticketsPath } from "@/paths";
 import Link from "next/link";
-import { LucideChartNoAxesCombined, LucideGem, LucideMedal } from "lucide-react";
+import { LucideGem} from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { ThemeSwitcher } from "@/components/theme/theme-switcher";
 

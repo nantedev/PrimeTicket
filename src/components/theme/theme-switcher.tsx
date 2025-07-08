@@ -1,6 +1,6 @@
 "use client";
 
-import { LucideCloudMoon, LucideCloudSun, LucideMoonStar } from "lucide-react";
+import { LucideCloudMoon, LucideCloudSun } from "lucide-react";
 import useTheme from "next-theme";
 import { Button } from "@/components/ui/button";
 
