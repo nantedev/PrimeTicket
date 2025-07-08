@@ -1,8 +1,8 @@
-import { Placeholder } from "@/src/components/placeholder";
-import { Button } from "@/src/components/ui/button";
-import { initialTickets } from "@/src/data";
-import { TicketItem } from "@/src/features/ticket/components/ticket-item";
-import { ticketsPath } from "@/src/paths";
+import { Placeholder } from "@/components/placeholder";
+import { Button } from "@/components/ui/button";
+import { initialTickets } from "@/data";
+import { TicketItem } from "@/features/ticket/components/ticket-item";
+import { ticketsPath } from "@/paths";
 import Link from "next/link";
 
 type TicketPageProps = {

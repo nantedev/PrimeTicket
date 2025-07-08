@@ -1,8 +1,8 @@
-import { homePath, ticketsPath } from "@/src/paths";
+import { homePath, ticketsPath } from "@/paths";
 import Link from "next/link";
 import { LucideChartNoAxesCombined, LucideGem, LucideMedal } from "lucide-react";
-import { buttonVariants } from "./ui/button";
-import { ThemeSwitcher } from "./theme/theme-switcher";
+import { buttonVariants } from "@/components/ui/button";
+import { ThemeSwitcher } from "@/components/theme/theme-switcher";
 
 const Header = () => {
     return (   

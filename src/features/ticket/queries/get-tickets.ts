@@ -1,5 +1,5 @@
-import { initialTickets } from "@/src/data"
-import { Ticket } from "../../types";
+import { initialTickets } from "@/data"
+import { Ticket } from "@/features/types";
 
 export const getTickets = async (): Promise<Ticket[]> => {
      await new Promise((resolve) => setTimeout(resolve, 2000));

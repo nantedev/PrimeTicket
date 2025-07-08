@@ -1,15 +1,15 @@
-import { ticketPath } from "@/src/paths";
+import { ticketPath } from "@/paths";
 import Link from "next/link";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardContent,
-} from "@/src/components/ui/card"
-import { TICKET_ICONS } from "../../constants";
-import { Ticket } from "../../types";
+} from "@/components/ui/card"
+import { TICKET_ICONS } from "@/features/constants";
+import { Ticket } from "@/features/types";
 import { LucideSquareArrowOutUpRight } from "lucide-react";
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/components/ui/button";
 import clsx from "clsx";
 
 type TicketItemProps = {
