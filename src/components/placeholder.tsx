@@ -3,8 +3,8 @@ import { cloneElement } from "react";
 
 type PlaceholderProps = {
     label: string;
-    icon?: React.ReactElement<any>;
-    button?: React.ReactElement<any>; 
+    icon?: React.ReactElement<React.SVGProps<SVGSVGElement>>;
+    button?: React.ReactElement<React.ButtonHTMLAttributes<HTMLButtonElement>>;
 }
 
 const Placeholder = ({
@@ -15,7 +15,7 @@ const Placeholder = ({
     return (
     <div className="flex-1  self-center flex items-center justify-center flex-col gap-y-2">
         {cloneElement(icon, {
-            className: "w-16 h-16"
+            className: "w-16 h-16",
         })}
         <h2 className="text-lg">{label}</h2>
         {cloneElement(button, {
