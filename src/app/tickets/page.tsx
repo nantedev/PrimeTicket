@@ -1,25 +1,13 @@
-"use client";
-
 import { Heading } from "@/components/heading";
 import { TicketItem } from "@/features/ticket/components/ticket-item";
-import { useEffect, useState } from "react";
-import { Ticket } from "@/features/types";
 import { getTickets } from "@/features/ticket/queries/get-tickets";
 
 
 
-const TicketsPage = () => {
-  const [tickets, setTickets] = useState<Ticket[]>([]);
+const TicketsPage = async () => {
 
-  useEffect(() => {
-    const fetchTickets = async () => {
-      const result = await getTickets();
+  const tickets = await getTickets();
 
-      setTickets(result);
-    }
-    
-    fetchTickets();
-  },[])
 
 
   return (
