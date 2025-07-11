@@ -7,7 +7,7 @@ import {
   CardContent,
 } from "@/components/ui/card"
 import { TICKET_ICONS } from "@/features/constants";
-import { Ticket } from "@/features/types";
+import { Ticket } from "@/features/ticket/types";
 import { LucideSquareArrowOutUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import clsx from "clsx";
