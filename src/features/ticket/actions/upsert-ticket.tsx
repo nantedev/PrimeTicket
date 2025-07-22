@@ -40,6 +40,6 @@ export const upsertTicket = async (
             redirect(ticketPath(id));
         }
 
-        return { message: "Ticket créé avec succès." };
+        return { message: "Ticket successfully created.", fieldErrors:{} };
             
         }
