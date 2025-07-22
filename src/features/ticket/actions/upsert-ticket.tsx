@@ -4,16 +4,23 @@ import { prisma } from "@/lib/prisma";
 import { ticketPath, ticketsPath } from "@/paths";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import z from "zod";
+
+const upsertTicketSchema = z.object({
+    title: z.string().min(1).max(191),
+    content: z.string().min(1).max(1024),
+})
 
 export const upsertTicket = async (
         id: string | undefined, 
         _actionState: { message: string }, 
         formData: FormData,
         ) => {
-            const data = {
+            try {
+            const data = upsertTicketSchema.parse({
                 title: formData.get("title") as string,
                 content: formData.get("content") as string,
-            };
+            });
 
 
                         await prisma.ticket.upsert({
@@ -23,12 +30,15 @@ export const upsertTicket = async (
                             create: data,
                             update: data,
                         });
+                    } catch(error) {
+                        return { message: "Une erreur a été détécté dans le formulaire."}
+                    }             
 
             revalidatePath(ticketsPath());
 
             if(id) {
                 redirect(ticketPath(id));
             }
-        return { message: "Ticket successfully created." };
+        return { message: "Ticket créé avec succès." };
             
         }
