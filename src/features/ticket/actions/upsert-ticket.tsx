@@ -1,5 +1,6 @@
 "use server"
 
+import { ActionState, fromErrorToActionState } from "@/components/form/utils/to-action-state";
 import { prisma } from "@/lib/prisma";
 import { ticketPath, ticketsPath } from "@/paths";
 import { revalidatePath } from "next/cache";
@@ -13,35 +14,32 @@ const upsertTicketSchema = z.object({
 
 export const upsertTicket = async (
         id: string | undefined, 
-        _actionState: { message: string; payload?: FormData }, 
+        _actionState: ActionState, 
         formData: FormData,
         ) => {
-            try {
+        try {
             const data = upsertTicketSchema.parse({
                 title: formData.get("title") as string,
                 content: formData.get("content") as string,
             });
 
+            await prisma.ticket.upsert({
+                where: { 
+                    id: id || "", 
+                },
+                create: data,
+                update: data,
+             });
+        } catch(error) {
+                return fromErrorToActionState(error, formData)
+        }             
 
-                        await prisma.ticket.upsert({
-                            where: { 
-                                id: id || "", 
-                            },
-                            create: data,
-                            update: data,
-                        });
-                    } catch(error) {
-                        return { 
-                            message: "Une erreur a été détécté dans le formulaire.",
-                            payload: formData,
-                        }
-                    }             
+        revalidatePath(ticketsPath());
 
-            revalidatePath(ticketsPath());
+        if(id) {
+            redirect(ticketPath(id));
+        }
 
-            if(id) {
-                redirect(ticketPath(id));
-            }
         return { message: "Ticket créé avec succès." };
             
         }
