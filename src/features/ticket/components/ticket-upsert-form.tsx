@@ -8,6 +8,7 @@ import { upsertTicket } from "../actions/upsert-ticket";
 import { SubmitButton } from "@/components/form/submit-button";
 import { useActionState } from "react";
 import { FieldError } from "@/components/form/field-error";
+import { EMPTY_ACTION_STATE } from "@/components/form/utils/to-action-state";
 
 
 
@@ -17,8 +18,9 @@ type TicketUpsertFormProps = {
 
 const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
   
-      const [actionState, action]= useActionState(upsertTicket.bind(null, ticket?.id), 
-        { message: "", fieldErrors:{} }
+      const [actionState, action]= useActionState(
+        upsertTicket.bind(null, ticket?.id), 
+        EMPTY_ACTION_STATE
       )
 
     return (      

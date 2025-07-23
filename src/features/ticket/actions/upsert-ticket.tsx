@@ -1,6 +1,6 @@
 "use server"
 
-import { ActionState, fromErrorToActionState } from "@/components/form/utils/to-action-state";
+import { ActionState, fromErrorToActionState, toActionState } from "@/components/form/utils/to-action-state";
 import { prisma } from "@/lib/prisma";
 import { ticketPath, ticketsPath } from "@/paths";
 import { revalidatePath } from "next/cache";
@@ -19,8 +19,8 @@ export const upsertTicket = async (
         ) => {
         try {
             const data = upsertTicketSchema.parse({
-                title: formData.get("title") as string,
-                content: formData.get("content") as string,
+                title: formData.get("title"),
+                content: formData.get("content"),
             });
 
             await prisma.ticket.upsert({
@@ -40,6 +40,6 @@ export const upsertTicket = async (
             redirect(ticketPath(id));
         }
 
-        return { message: "Ticket successfully created.", fieldErrors:{} };
+        return toActionState("SUCCESS", "ticket created");
             
         }
