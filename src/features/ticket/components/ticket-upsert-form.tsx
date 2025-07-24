@@ -11,6 +11,7 @@ import { FieldError } from "@/components/form/field-error";
 import { EMPTY_ACTION_STATE } from "@/components/form/utils/to-action-state";
 import { useActionFeedback } from "@/components/form/hooks/use-action-feedback";
 import { toast } from "sonner";
+import { Form } from "@/components/form/form";
 
 
 
@@ -25,17 +26,10 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
         EMPTY_ACTION_STATE
       )
 
-      useActionFeedback(actionState, {
-        onSuccess: ({ actionState }) => {
-          toast.success(actionState.message)
-        },
-        onError: ({ actionState }) => {
-          toast.error(actionState.message)
-        },
-      })
+  
 
     return (      
-            <form action={action} className="flex flex-col gap-y-3">
+            <Form action={action} actionState={actionState}>
 
                 <Label htmlFor="title">Title</Label>
                 <Input 
@@ -56,7 +50,7 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
                 
                 < SubmitButton label={ticket ? "Edit" : "Create"}/>
 
-            </form>
+            </Form>
     );
 };
 
