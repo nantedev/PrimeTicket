@@ -8,6 +8,8 @@ import { upsertTicket } from "../actions/upsert-ticket";
 import { SubmitButton } from "@/components/form/submit-button";
 import { useActionState } from "react";
 import { FieldError } from "@/components/form/field-error";
+import { EMPTY_ACTION_STATE } from "@/components/form/utils/to-action-state";
+import { Form } from "@/components/form/form";
 
 
 
@@ -17,12 +19,15 @@ type TicketUpsertFormProps = {
 
 const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
   
-      const [actionState, action]= useActionState(upsertTicket.bind(null, ticket?.id), 
-        { message: "", fieldErrors:{} }
+      const [actionState, action]= useActionState(
+        upsertTicket.bind(null, ticket?.id), 
+        EMPTY_ACTION_STATE
       )
 
+  
+
     return (      
-            <form action={action} className="flex flex-col gap-y-3">
+            <Form action={action} actionState={actionState}>
 
                 <Label htmlFor="title">Title</Label>
                 <Input 
@@ -42,9 +47,8 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
                 <FieldError actionState={actionState} name="content"/>
                 
                 < SubmitButton label={ticket ? "Edit" : "Create"}/>
-                
-                {actionState.message}
-            </form>
+
+            </Form>
     );
 };
 
