@@ -24,11 +24,15 @@ const useActionFeedback = (
     if(!isUpdate) return;
 
     if (actionState.status === "SUCCESS") {
+        if(actionState.message) {
             options.onSuccess?.({actionState});
+        }
     }
 
     if(actionState.status === "ERROR") {
+         if(actionState.message) {
             options.onError?.({actionState});
+        }
    }
 
     }, [isUpdate, actionState, options]);

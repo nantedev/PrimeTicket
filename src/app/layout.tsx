@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { ThemeProvider } from "@/components/theme/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 
 const inter = Inter({
@@ -39,6 +40,7 @@ export default function RootLayout({
          >
            {children}
          </main>≈
+         <Toaster expand/>
        </ThemeProvider>
       </body>
     </html>
