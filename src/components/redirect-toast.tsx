@@ -1,6 +1,6 @@
 "use client"
 
-import { deleteCookieByKey, getCookieByKey } from "@/app/actions/cookies";
+import { consumeCookiedByKey } from "@/app/actions/cookies";
 import { useEffect } from "react";
 import { toast } from "sonner";
 
@@ -10,11 +10,10 @@ const RedirectToast = () => {
     useEffect(() => {
         const showCookieToast = async () => {
             
-            const message = await getCookieByKey("toast");
+            const message = await consumeCookiedByKey("toast");
             
             if (message) {
                 toast.success(message);
-                await deleteCookieByKey("toast");
             }
         }
 
