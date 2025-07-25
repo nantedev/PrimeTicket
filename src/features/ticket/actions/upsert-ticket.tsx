@@ -32,15 +32,15 @@ export const upsertTicket = async (
                 update: data,
              });
         } catch(error) {
-                return fromErrorToActionState(error, formData)
-        }             
+                return fromErrorToActionState(error, formData);
+        };             
 
         revalidatePath(ticketsPath());
 
         if(id) {
-            setCookieByKey("toast", "Ticket updated")
+            await setCookieByKey("toast", "Ticket updated");
             redirect(ticketPath(id));
-        }
+        };
 
         return toActionState("SUCCESS", "Ticket created");
-        }
+        };
