@@ -1,27 +1,26 @@
-"use client"
+"use client";
 
 import { consumeCookiedByKey } from "@/app/actions/cookies";
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { toast } from "sonner";
 
-
 const RedirectToast = () => {
-    
-    useEffect(() => {
-        const showCookieToast = async () => {
-            
-            const message = await consumeCookiedByKey("toast");
-            
-            if (message) {
-                toast.success(message);
-            }
-        }
+  const pathname = usePathname();
 
-        showCookieToast();
-    
-    }, []);
+  useEffect(() => {
+    const showCookieToast = async () => {
+      const message = await consumeCookiedByKey("toast");
 
-    return null;
-}
+      if (message) {
+        toast.success(message);
+      }
+    };
+
+    showCookieToast();
+  }, [pathname]);
+
+  return null;
+};
 
 export { RedirectToast };
