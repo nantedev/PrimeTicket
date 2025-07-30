@@ -11,6 +11,7 @@ import { FieldError } from "@/components/form/field-error";
 import { EMPTY_ACTION_STATE } from "@/components/form/utils/to-action-state";
 import { Form } from "@/components/form/form";
 import { fromCent } from "@/utils/currency";
+import { DatePicker } from "@/components/date-picket";
 
 type TicketUpsertFormProps = {
   ticket?: Ticket;
@@ -50,20 +51,20 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
           <Label htmlFor="deadline" className="mb-3">
             Deadline
           </Label>
-          <Input
+          <DatePicker
             id="deadline"
             name="deadline"
-            type="date"
             defaultValue={
               (actionState.payload?.get("deadline") as string) ??
               ticket?.deadline
             }
           />
+
           <FieldError actionState={actionState} name="deadline" />
         </div>
 
         <div className="w-1/2">
-          <Label htmlFor="deadline" className="mb-2">
+          <Label htmlFor="deadline" className="mb-3">
             Bounty (€)
           </Label>
           <Input
