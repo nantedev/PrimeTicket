@@ -8,6 +8,7 @@ import {
 } from "@/components/form/utils/to-action-state";
 import { prisma } from "@/lib/prisma";
 import { ticketPath, ticketsPath } from "@/paths";
+import { toCent } from "@/utils/currency";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import z from "zod";
@@ -34,7 +35,7 @@ export const upsertTicket = async (
 
     const dbData = {
       ...data,
-      bounty: data.bounty * 100,
+      bounty: toCent(data.bounty),
     };
 
     await prisma.ticket.upsert({
