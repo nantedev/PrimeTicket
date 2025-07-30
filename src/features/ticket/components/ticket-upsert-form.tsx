@@ -11,45 +11,76 @@ import { FieldError } from "@/components/form/field-error";
 import { EMPTY_ACTION_STATE } from "@/components/form/utils/to-action-state";
 import { Form } from "@/components/form/form";
 
-
-
 type TicketUpsertFormProps = {
-  ticket?: Ticket
+  ticket?: Ticket;
 };
 
 const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
-  
-      const [actionState, action]= useActionState(
-        upsertTicket.bind(null, ticket?.id), 
-        EMPTY_ACTION_STATE
-      )
+  const [actionState, action] = useActionState(
+    upsertTicket.bind(null, ticket?.id),
+    EMPTY_ACTION_STATE
+  );
 
-  
+  return (
+    <Form action={action} actionState={actionState}>
+      <Label htmlFor="title">Title</Label>
+      <Input
+        id="title"
+        name="title"
+        type="text"
+        defaultValue={
+          (actionState.payload?.get("title") as string) ?? ticket?.title
+        }
+      />
+      <FieldError actionState={actionState} name="title" />
 
-    return (      
-            <Form action={action} actionState={actionState}>
+      <Label htmlFor="content">Content</Label>
+      <Textarea
+        id="content"
+        name="content"
+        defaultValue={
+          (actionState.payload?.get("content") as string) ?? ticket?.content
+        }
+      />
+      <FieldError actionState={actionState} name="content" />
 
-                <Label htmlFor="title">Title</Label>
-                <Input 
-                id="title" 
-                name="title" 
-                type="text" 
-                defaultValue={(actionState.payload?.get('title')) as string ?? ticket?.title} 
-                />
-                <FieldError actionState={actionState} name="title"/>
+      <div className="flex gap-x-2 mb-1">
+        <div className="w-1/2">
+          <Label htmlFor="deadline" className="mb-3">
+            Deadline
+          </Label>
+          <Input
+            id="deadline"
+            name="deadline"
+            type="date"
+            defaultValue={
+              (actionState.payload?.get("deadline") as string) ??
+              ticket?.deadline
+            }
+          />
+          <FieldError actionState={actionState} name="deadline" />
+        </div>
 
-                <Label htmlFor="content">Content</Label>
-                <Textarea 
-                id="content" 
-                name="content" 
-                defaultValue={(actionState.payload?.get('content')) as string ?? ticket?.content} 
-                />
-                <FieldError actionState={actionState} name="content"/>
-                
-                < SubmitButton label={ticket ? "Edit" : "Create"}/>
+        <div className="w-1/2">
+          <Label htmlFor="deadline" className="mb-2">
+            Bounty
+          </Label>
+          <Input
+            id="bounty"
+            name="bounty"
+            type="number"
+            step=".01"
+            defaultValue={
+              (actionState.payload?.get("bounty") as string) ?? ticket?.bounty
+            }
+          />
+          <FieldError actionState={actionState} name="bounty" />
+        </div>
+      </div>
 
-            </Form>
-    );
+      <SubmitButton label={ticket ? "Edit" : "Create"} />
+    </Form>
+  );
 };
 
 export { TicketUpsertForm };
