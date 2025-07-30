@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import clsx from "clsx";
 import { Ticket } from "@prisma/client";
 import { deleteTicket } from "../actions/delete-ticket";
+import { toCurrencyFromCent } from "@/utils/currency";
 
 type TicketItemProps = {
   ticket: Ticket;
@@ -75,7 +76,7 @@ const TicketItem = ({ ticket, isDetail }: TicketItemProps) => {
         </CardContent>
         <CardFooter className="flex justify-between text-muted-foreground">
           <p>{ticket.deadline}</p>
-          <p>{ticket.bounty}</p>
+          <p>{toCurrencyFromCent(ticket.bounty)}</p>
         </CardFooter>
       </Card>
 
