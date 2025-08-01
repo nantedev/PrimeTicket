@@ -10,22 +10,44 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useState } from "react";
+import { useImperativeHandle, useState } from "react";
+
+export type ImperativeHandleFromDatePicker = {
+  reset: () => void;
+};
 
 type DatePickerProps = {
   id: string;
   name: string;
   defaultValue?: string | undefined;
+  imperativeHandleRef?: React.RefObject<ImperativeHandleFromDatePicker | null>;
 };
 
-export function DatePicker({ id, name, defaultValue }: DatePickerProps) {
+export function DatePicker({
+  id,
+  name,
+  defaultValue,
+  imperativeHandleRef,
+}: DatePickerProps) {
   const [date, setDate] = useState<Date | undefined>(
     defaultValue ? new Date(defaultValue) : new Date()
   );
+
+  useImperativeHandle(imperativeHandleRef, () => ({
+    reset: () => setDate(new Date()),
+  }));
+
+  const [open, setOpen] = useState(false);
+
+  const handleSelect = (selectedDate: Date | undefined) => {
+    setDate(selectedDate);
+    setOpen(false);
+  };
+
   const formattedStringDate = date ? format(date, "yyyy-MM-dd") : "";
 
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger className="w-full" id={id} asChild>
         <Button
           variant="outline"
@@ -37,7 +59,12 @@ export function DatePicker({ id, name, defaultValue }: DatePickerProps) {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
-        <Calendar mode="single" selected={date} onSelect={setDate} autoFocus />
+        <Calendar
+          mode="single"
+          selected={date}
+          onSelect={handleSelect}
+          autoFocus
+        />
       </PopoverContent>
     </Popover>
   );
