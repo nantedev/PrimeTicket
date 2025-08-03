@@ -12,15 +12,12 @@ import {
   LucideMoreVertical,
   LucidePencil,
   LucideSquareArrowOutUpRight,
-  LucideTrash2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import clsx from "clsx";
 import { Ticket } from "@prisma/client";
-import { deleteTicket } from "../actions/delete-ticket";
 import { toCurrencyFromCent } from "@/utils/currency";
 import { TicketMoreMenu } from "./ticket-more-menu";
-import { ConfirmDialog } from "@/components/confirm-dialog";
 
 type TicketItemProps = {
   ticket: Ticket;
@@ -42,22 +39,6 @@ const TicketItem = ({ ticket, isDetail }: TicketItemProps) => {
         <LucidePencil className="h-4 w-4" />
       </Link>
     </Button>
-  );
-
-  // const deleteButton = (
-  //   <form action={deleteTicket.bind(null, ticket.id)}>
-  //   </form>
-  // );
-
-  const deleteButton = (
-    <ConfirmDialog
-      action={deleteTicket.bind(null, ticket.id)}
-      trigger={
-        <Button variant="outline" size="icon">
-          <LucideTrash2 className="h-4 w-4" />
-        </Button>
-      }
-    />
   );
 
   const moreMenu = (
@@ -106,7 +87,6 @@ const TicketItem = ({ ticket, isDetail }: TicketItemProps) => {
         {isDetail ? (
           <>
             {editButton}
-            {deleteButton}
             {moreMenu}
           </>
         ) : (
