@@ -1,8 +1,10 @@
 import { homePath, signInPath, signUpPath, ticketsPath } from "@/paths";
 import Link from "next/link";
-import { LucideGem } from "lucide-react";
+import { LucideGem, LucideLogOut } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { ThemeSwitcher } from "@/components/theme/theme-switcher";
+import { SubmitButton } from "./form/submit-button";
+import { signOut } from "@/features/auth/action/sign-out";
 
 const Header = () => {
   const navItem = (
@@ -25,6 +27,9 @@ const Header = () => {
       >
         Sign In
       </Link>
+      <form action={signOut}>
+        <SubmitButton label="Sign Out" icon={<LucideLogOut />} />
+      </form>
     </>
   );
 
