@@ -15,12 +15,20 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import clsx from "clsx";
-import { Ticket } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { toCurrencyFromCent } from "@/utils/currency";
 import { TicketMoreMenu } from "./ticket-more-menu";
 
 type TicketItemProps = {
-  ticket: Ticket;
+  ticket: Prisma.TicketGetPayload<{
+    include: {
+      user: {
+        select: {
+          username: true;
+        };
+      };
+    };
+  }>;
   isDetail?: boolean;
 };
 
@@ -78,7 +86,9 @@ const TicketItem = ({ ticket, isDetail }: TicketItemProps) => {
           </span>
         </CardContent>
         <CardFooter className="flex justify-between text-muted-foreground">
-          <p>{ticket.deadline}</p>
+          <p>
+            {ticket.deadline} by {ticket.user.username}
+          </p>
           <p>{toCurrencyFromCent(ticket.bounty)}</p>
         </CardFooter>
       </Card>
