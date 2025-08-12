@@ -3,9 +3,10 @@ import { getAuth } from "./get-auth";
 import { signInPath } from "@/paths";
 
 export const getAuthOrRedirect = async () => {
-      const { user } = await getAuth();
+      const  auth  = await getAuth();
 
-  if (!user) {
+  if (!auth.user) {
     redirect(signInPath());
   }
+  return auth;
 }
