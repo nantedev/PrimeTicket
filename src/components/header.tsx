@@ -5,7 +5,7 @@ import { LucideGem, LucideLogOut } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { ThemeSwitcher } from "@/components/theme/theme-switcher";
 import { SubmitButton } from "./form/submit-button";
-import { signOut } from "@/features/auth/action/sign-out";
+import { signOut } from "@/features/auth/actions/sign-out";
 import { useAuth } from "@/features/auth/hooks/use-auth";
 
 const Header = () => {

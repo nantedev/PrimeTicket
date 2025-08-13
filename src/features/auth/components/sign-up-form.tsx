@@ -1,7 +1,7 @@
 "use client";
 
 import { SubmitButton } from "@/components/form/submit-button";
-import { signUp } from "../action/sign-up";
+import { signUp } from "../actions/sign-up";
 import { EMPTY_ACTION_STATE } from "@/components/form/utils/to-action-state";
 import { useActionState } from "react";
 import { Input } from "@/components/ui/input";
