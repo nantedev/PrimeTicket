@@ -1,13 +1,14 @@
 "use server";
 
 import { ActionState, fromErrorToActionState } from "@/components/form/utils/to-action-state";
-import { lucia } from "@/lib/lucia";
 import { prisma } from "@/lib/prisma";
-import { cookies } from "next/headers";
-import { hash } from "@node-rs/argon2";
 import z from "zod"
 import { redirect } from "next/navigation";
 import { ticketsPath } from "@/paths";
+import { hashPassword } from "../utils/hash-and-verify";
+import { generateRandomToken } from "@/utils/crypto";
+import { setSessionCookie } from "../utils/session-cookie";
+import { createSession } from "@/lib/lucia";
 
 const signUpSchema = z.object({
     username: z
@@ -32,7 +33,7 @@ const signUpSchema = z.object({
         const { username, email, password } = signUpSchema.parse(
         Object.fromEntries(formData)
     )
-    const passwordHash = await hash(password);
+    const passwordHash = await hashPassword(password);
 
     const user = await prisma.user.create({
         data: {
@@ -42,10 +43,10 @@ const signUpSchema = z.object({
         }
     })
 
-    const session = await lucia.createSession(user.id, {});
-    const sessionCookie = lucia.createSessionCookie(session.id);
+    const sessionToken = generateRandomToken();
+    const session = await createSession(sessionToken, user.id);
 
-    (await cookies()).set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
+    await setSessionCookie(sessionToken, session.expiresAt);
 
     } catch (error) {
         return fromErrorToActionState(error, formData)
