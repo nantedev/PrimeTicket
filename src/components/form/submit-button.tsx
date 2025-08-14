@@ -16,22 +16,31 @@ type SubmitButtonProps = {
     | "link"
     | "destructive";
   size?: "default" | "sm" | "lg" | "icon";
+  isPending?: boolean;
 };
 
-const SubmitButton = ({ label, icon, variant, size }: SubmitButtonProps) => {
+const SubmitButton = ({
+  label,
+  icon,
+  variant,
+  size,
+  isPending,
+}: SubmitButtonProps) => {
   const { pending } = useFormStatus();
 
+  const isSubmitting = isPending ?? pending;
+
   return (
-    <Button disabled={pending} type="submit" variant={variant} size={size}>
-      {pending && (
+    <Button disabled={isSubmitting} type="submit" variant={variant} size={size}>
+      {isSubmitting && (
         <LucideLoader
-          className={clsx("mr-2 h-4 w-4 animate-spin", {
+          className={clsx("h-4 w-4 animate-spin", {
             "mr-2": !!label,
           })}
         />
       )}
       {label}
-      {pending ? null : icon ? (
+      {isSubmitting ? null : icon ? (
         <span className={clsx({ "ml-2": !!label })}>
           {cloneElement(icon, {
             className: "h-4 w-4",

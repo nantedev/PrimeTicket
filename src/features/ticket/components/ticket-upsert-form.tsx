@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Ticket } from "@prisma/client";
 import { upsertTicket } from "../actions/upsert-ticket";
 import { SubmitButton } from "@/components/form/submit-button";
-import { useActionState, useRef } from "react";
+import { useActionState, useRef, useTransition } from "react";
 import { FieldError } from "@/components/form/field-error";
 import { EMPTY_ACTION_STATE } from "@/components/form/utils/to-action-state";
 import { Form } from "@/components/form/form";
@@ -21,6 +21,7 @@ type TicketUpsertFormProps = {
 };
 
 const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
+  const [isPending, startTransition] = useTransition();
   const [actionState, action] = useActionState(
     upsertTicket.bind(null, ticket?.id),
     EMPTY_ACTION_STATE
@@ -33,8 +34,18 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
     datePickerImperativeHandleRef.current?.reset();
   };
 
+  const handleAction = (formData: FormData) => {
+    startTransition(() => {
+      action(formData);
+    });
+  };
+
   return (
-    <Form action={action} actionState={actionState} onSuccess={handleSuccess}>
+    <Form
+      action={handleAction}
+      actionState={actionState}
+      onSuccess={handleSuccess}
+    >
       <Label htmlFor="title">Title</Label>
       <Input
         id="title"
@@ -92,7 +103,7 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
         </div>
       </div>
 
-      <SubmitButton label={ticket ? "Edit" : "Create"} />
+      <SubmitButton label={ticket ? "Edit" : "Create"} isPending={isPending} />
     </Form>
   );
 };
