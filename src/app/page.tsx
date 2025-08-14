@@ -4,15 +4,19 @@ import { Heading } from "@/components/heading";
 
 const HomePage = () => {
   return (
-  <div className="flex-1 flex flex-col gap-y-10">
-    
-    <Heading title="HomePage" description="Your starting point. Every time."/>
+    <div className="flex-1 flex flex-col gap-y-10">
+      <Heading
+        title="Start here !"
+        description="Find the best dev opportunities."
+      />
 
-    <div className="flex-1 flex flex-col items-center">
-      <Link href={ticketsPath()} className="underline">Go there</Link>
+      <div className="flex-1 flex flex-col items-center">
+        <Link href={ticketsPath()} className="underline">
+          Go there
+        </Link>
+      </div>
     </div>
-  </div>
-  )
-}
+  );
+};
 
 export default HomePage;
