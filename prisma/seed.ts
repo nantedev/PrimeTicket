@@ -16,25 +16,25 @@ const users = [
 
 const tickets = [
     {
-    title: "Ticket 1",
-    content: "This is the first ticket from db.",
+    title: "Add real-time email validation ",
+    content: "As a user, I want to be notified immediately if the email address I'm entering is invalid, so I can correct the error before submitting the form.",
     status: "DONE" as const,
     deadline: new Date().toISOString().split("T")[0],
-    bounty: 399,
+    bounty: 550000,
     },
     {
-    title: "Ticket 2",
-    content: "This is the second ticket from db.",
+    title: "Optimize product listing",
+    content: "The product listing page takes over 3 seconds to load with 1000+ products, causing poor user experience and high bounce rate.",
     status: "OPEN" as const,
     deadline: new Date().toISOString().split("T")[0],
-    bounty: 399,
+    bounty: 750000,
     },
     {
-    title: "Ticket 3",
-    content: "This is the third ticket from db.",
+    title: "Fix shopping cart display",
+    content: "On Safari mobile (iOS 15+), cart items are not displaying correctly. Text overflows the container and quantity buttons are misaligned",
     status: "IN_PROGRESS" as const,
     deadline: new Date().toISOString().split("T")[0],
-    bounty: 399,
+    bounty: 450000,
     },
 ];
 
