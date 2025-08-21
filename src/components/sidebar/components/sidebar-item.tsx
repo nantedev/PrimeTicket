@@ -1,4 +1,3 @@
-import { usePathname } from "next/navigation";
 import { NavItem } from "../type";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
@@ -9,13 +8,11 @@ import { Separator } from "@radix-ui/react-separator";
 
 type SidebarItemProps = {
   isOpen: boolean;
+  isActive: boolean;
   navItem: NavItem;
 };
 
-const SidebarItem = ({ isOpen, navItem }: SidebarItemProps) => {
-  const path = usePathname();
-  const isActive = path === navItem.href;
-
+const SidebarItem = ({ isOpen, isActive, navItem }: SidebarItemProps) => {
   return (
     <>
       {navItem.separator && <Separator />}
