@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/header";
+import { Header } from "@/app/_navigation/header";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { RedirectToast } from "@/components/redirect-toast";
-import { Sidebar } from "@/components/sidebar/components/sidebar";
+import { Sidebar } from "@/app/_navigation/sidebar/components/sidebar";
 
 const inter = Inter({
   subsets: ["latin"],
