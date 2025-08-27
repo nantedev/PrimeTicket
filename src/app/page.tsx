@@ -5,10 +5,12 @@ import { TicketList } from "@/features/ticket/components/ticket-list";
 import { SearchParams } from "@/features/ticket/search-params";
 
 type HomePageProps = {
-  searchParams: SearchParams;
+  searchParams: Promise<SearchParams>;
 };
 
 const HomePage = async ({ searchParams }: HomePageProps) => {
+  const resolvedSearchParams = await searchParams;
+
   return (
     <div className="flex-1 flex flex-col gap-y-10">
       <Heading
@@ -17,7 +19,7 @@ const HomePage = async ({ searchParams }: HomePageProps) => {
       />
 
       <Suspense fallback={<Spinner />}>
-        <TicketList searchParams={await searchParams} />
+        <TicketList searchParams={resolvedSearchParams} />
       </Suspense>
     </div>
   );
