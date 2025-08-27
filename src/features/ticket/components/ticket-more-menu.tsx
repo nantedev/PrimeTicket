@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { TICKET_STATUS_LABELS } from "@/features/constants";
+import { TICKET_STATUS_LABELS } from "@/features/ticket/constants";
 import { Ticket, TicketStatus } from "@prisma/client";
 import { LucideTrash } from "lucide-react";
 import { updateTicketStatus } from "../actions/update-ticket-status";
