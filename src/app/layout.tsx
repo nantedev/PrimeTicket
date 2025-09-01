@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Header } from "@/app/_navigation/header";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
@@ -24,29 +25,31 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider>
-          <Header />
-          <div className="flex h-screen overflow-hidden border-collapse">
-            <Sidebar />
-            <main
-              className="
-               min-h-screen 
-               flex-1
-               overflow-y-auto 
-               overflow-x-hidden 
-               py-24 
-               px-8
-               bg-secondary/20
-               flex 
-               flex-col
-             "
-            >
-              {children}
-            </main>
-          </div>
-          <Toaster expand />
-          <RedirectToast />
-        </ThemeProvider>
+        <NuqsAdapter>
+          <ThemeProvider>
+            <Header />
+            <div className="flex h-screen overflow-hidden border-collapse">
+              <Sidebar />
+              <main
+                className="
+                 min-h-screen 
+                 flex-1
+                 overflow-y-auto 
+                 overflow-x-hidden 
+                 py-24 
+                 px-8
+                 bg-secondary/20
+                 flex 
+                 flex-col
+               "
+              >
+                {children}
+              </main>
+            </div>
+            <Toaster expand />
+            <RedirectToast />
+          </ThemeProvider>
+        </NuqsAdapter>
       </body>
     </html>
   );
