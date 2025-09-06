@@ -22,6 +22,8 @@ const TicketList = async ({ userId, searchParams }: TicketListProps) => {
             { sortKey: "createdAt", sortValue: "desc", label: "Newest" },
             { sortKey: "createdAt", sortValue: "asc", label: "Oldest" },
             { sortKey: "bounty", sortValue: "desc", label: "Bounty" },
+            { sortKey: "title", sortValue: "asc", label: "A -> Z" },
+            { sortKey: "title", sortValue: "desc", label: "Z -> A" },
           ]}
         />
       </div>
