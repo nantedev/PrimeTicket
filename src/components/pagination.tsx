@@ -13,19 +13,21 @@ type PaginationProps = {
 const Pagination = ({ pagination, onPagination }: PaginationProps) => {
   const startOffset = pagination.page * pagination.size + 1;
   const endOffset = startOffset - 1 + pagination.size;
+
   const label = `${startOffset} - ${endOffset} of X`;
+
   const handleNextPage = () => {
-    onPagination({ ...pagination, page: pagination.page - 1 });
+    onPagination({ ...pagination, page: pagination.page + 1 });
   };
   const handlePreviousPage = () => {
-    onPagination({ ...pagination, page: pagination.page + 1 });
+    onPagination({ ...pagination, page: pagination.page - 1 });
   };
 
   const previousButton = (
     <Button
       variant="outline"
       size="sm"
-      disabled={pagination.page < 1}
+      disabled={pagination.page === 0}
       onClick={handlePreviousPage}
     >
       Previous
