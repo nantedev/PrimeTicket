@@ -1,9 +1,11 @@
 import { getTicket } from "@/features/ticket/queries/get-ticket";
+import { NextResponse } from "next/server";
 
-export async function GET(_request: Request,
-    {params}: {params: {ticketId: string}}
+export async function GET(
+    _request: Request,
+    { params }: { params: { ticketId: string } }
 ) {
-    const { ticketId } = await params;
+    const { ticketId } = params;
     const ticket = await getTicket(ticketId);
-    return Response.json(ticket);
+    return NextResponse.json(ticket);
 }
