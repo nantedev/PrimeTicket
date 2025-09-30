@@ -14,6 +14,18 @@ const users = [
     }
 ]
 
+const comments = [
+    {
+        content: "This is a comment from DB",
+    },
+    {
+        content: "This is another comment from DB",
+    },
+    {
+        content: "This is a third comment from DB",
+    },
+];
+
 const tickets = [
     {
         title: "Add real-time email validation",
@@ -159,7 +171,7 @@ const tickets = [
 
 const seed = async () => {
     const t0 = performance.now();
-
+    await prisma.comment.deleteMany();
     await prisma.ticket.deleteMany();
     await prisma.user.deleteMany();
 
@@ -171,12 +183,21 @@ const seed = async () => {
             passwordHash,
         }))
     })
-    await prisma.ticket.createMany({
+
+    const dbTickets = await prisma.ticket.createManyAndReturn({
         data: tickets.map((ticket) => ({
             ...ticket,
             userId: dbUsers[0].id, //always atached to the first user ?
         })),
     });
+
+    await prisma.comment.createMany({
+        data: comments.map((comment) => ({
+            ...comment,
+            userId: dbUsers[0].id,
+            ticketId: dbTickets[1].id, 
+        }))
+    })
 
     const t1 = performance.now();
     
