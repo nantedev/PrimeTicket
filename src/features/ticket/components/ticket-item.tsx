@@ -15,29 +15,21 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import clsx from "clsx";
-import { Prisma } from "@prisma/client";
 import { toCurrencyFromCent } from "@/utils/currency";
 import { TicketMoreMenu } from "./ticket-more-menu";
 import { getAuth } from "@/features/auth/queries/get-auth";
 import { isOwner } from "@/features/auth/utils/is-owner";
 import { Comments } from "@/features/comment/components/comments";
-import { Suspense } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
+import { TicketWithMetadata } from "../types";
+import { CommentWithMetadata } from "@/features/comment/types";
 
 type TicketItemProps = {
-  ticket: Prisma.TicketGetPayload<{
-    include: {
-      user: {
-        select: {
-          username: true;
-        };
-      };
-    };
-  }>;
+  ticket: TicketWithMetadata;
   isDetail?: boolean;
+  comments?: CommentWithMetadata[];
 };
 
-const TicketItem = async ({ ticket, isDetail }: TicketItemProps) => {
+const TicketItem = async ({ ticket, isDetail, comments }: TicketItemProps) => {
   const { user } = await getAuth();
   const isTicketOwner = isOwner(user, ticket);
 
@@ -116,20 +108,7 @@ const TicketItem = async ({ ticket, isDetail }: TicketItemProps) => {
           )}
         </div>
       </div>
-      {isDetail ? (
-        <Suspense
-          fallback={
-            <div className="w-full flex flex-col gap-y-4">
-              <Skeleton className="h-[250px] w-full" />
-              <Skeleton className="h-[80px] ml-8" />
-              <Skeleton className="h-[80px] ml-8" />
-              <Skeleton className="h-[80px] ml-8" />
-            </div>
-          }
-        >
-          <Comments ticketId={ticket.id} />
-        </Suspense>
-      ) : null}
+      {isDetail ? <Comments ticketId={ticket.id} comments={comments} /> : null}
     </div>
   );
 };
