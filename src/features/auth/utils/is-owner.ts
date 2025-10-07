@@ -6,7 +6,8 @@ type Entity = {
 
 export const isOwner = ( 
     authUser: User | null | undefined, 
-    entity: Entity | null | undefined) => {
+    entity: Entity | null | undefined
+    ) => {
     if(!authUser || !entity) {
         return false;
     }
