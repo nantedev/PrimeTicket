@@ -1,3 +1,5 @@
+"use client";
+
 import { ticketEditPath, ticketPath } from "@/paths";
 import Link from "next/link";
 import {
@@ -17,8 +19,6 @@ import { Button } from "@/components/ui/button";
 import clsx from "clsx";
 import { toCurrencyFromCent } from "@/utils/currency";
 import { TicketMoreMenu } from "./ticket-more-menu";
-import { getAuth } from "@/features/auth/queries/get-auth";
-import { isOwner } from "@/features/auth/utils/is-owner";
 import { Comments } from "@/features/comment/components/comments";
 import { TicketWithMetadata } from "../types";
 import { CommentWithMetadata } from "@/features/comment/types";
@@ -29,10 +29,7 @@ type TicketItemProps = {
   comments?: CommentWithMetadata[];
 };
 
-const TicketItem = async ({ ticket, isDetail, comments }: TicketItemProps) => {
-  const { user } = await getAuth();
-  const isTicketOwner = isOwner(user, ticket);
-
+const TicketItem = ({ ticket, isDetail, comments }: TicketItemProps) => {
   const detailButton = (
     <Button asChild variant="outline" size="icon">
       <Link href={ticketPath(ticket.id)} className="text-sm underline">
@@ -41,7 +38,7 @@ const TicketItem = async ({ ticket, isDetail, comments }: TicketItemProps) => {
     </Button>
   );
 
-  const editButton = isTicketOwner ? (
+  const editButton = ticket.isOwner ? (
     <Button asChild variant="outline" size="icon">
       <Link href={ticketEditPath(ticket.id)} className="text-sm underline">
         <LucidePencil className="h-4 w-4" />
@@ -49,7 +46,7 @@ const TicketItem = async ({ ticket, isDetail, comments }: TicketItemProps) => {
     </Button>
   ) : null;
 
-  const moreMenu = isTicketOwner ? (
+  const moreMenu = ticket.isOwner ? (
     <TicketMoreMenu
       ticket={ticket}
       trigger={
