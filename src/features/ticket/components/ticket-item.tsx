@@ -29,7 +29,7 @@ type TicketItemProps = {
   comments?: CommentWithMetadata[];
 };
 
-const TicketItem = async ({ ticket, isDetail, comments }: TicketItemProps) => {
+const TicketItem = ({ ticket, isDetail, comments }: TicketItemProps) => {
   const detailButton = (
     <Button asChild variant="outline" size="icon">
       <Link href={ticketPath(ticket.id)} className="text-sm underline">
