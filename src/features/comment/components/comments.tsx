@@ -1,8 +1,11 @@
+"use client";
+
 import { CardCompact } from "@/components/card-compact";
 import { CommentItem } from "./comment-item";
 import { CommentCreateForm } from "./comment-create-form";
 import { CommentDeleteButton } from "./comment-delete-button";
 import { CommentWithMetadata } from "../types";
+import { Button } from "@/components/ui/button";
 
 type CommentsProps = {
   ticketId: string;
@@ -10,6 +13,9 @@ type CommentsProps = {
 };
 
 const Comments = async ({ ticketId, comments = [] }: CommentsProps) => {
+  const handleMore = () => {
+    console.log("Load more more comments...");
+  };
   return (
     <>
       <CardCompact
@@ -30,6 +36,11 @@ const Comments = async ({ ticketId, comments = [] }: CommentsProps) => {
             ]}
           />
         ))}
+      </div>
+      <div className="flex flex-col justify-center ml-8">
+        <Button variant="ghost" onClick={handleMore}>
+          More
+        </Button>
       </div>
     </>
   );
