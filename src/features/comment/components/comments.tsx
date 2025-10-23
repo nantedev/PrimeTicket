@@ -10,13 +10,22 @@ import { getComments } from "../queries/get-comments";
 
 type CommentsProps = {
   ticketId: string;
-  comments?: CommentWithMetadata[];
+  paginatedComments: {
+    list: CommentWithMetadata[];
+    metadata: {
+      count: number;
+      hasNextPage: boolean;
+    };
+  };
 };
 
-const Comments = async ({ ticketId, comments = [] }: CommentsProps) => {
+const Comments = async ({ ticketId, paginatedComments }: CommentsProps) => {
+  const comments = paginatedComments.list;
   const handleMore = async () => {
-    const result = await getComments(ticketId);
-    console.log(result);
+    const morePaginatedComments = await getComments(ticketId);
+    const moreComments = morePaginatedComments.list;
+    // Append moreComments to the existing comments
+    console.log(moreComments);
   };
   return (
     <>
