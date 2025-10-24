@@ -7,6 +7,7 @@ import { CommentDeleteButton } from "./comment-delete-button";
 import { CommentWithMetadata } from "../types";
 import { Button } from "@/components/ui/button";
 import { getComments } from "../queries/get-comments";
+import { useState } from "react";
 
 type CommentsProps = {
   ticketId: string;
@@ -19,13 +20,16 @@ type CommentsProps = {
   };
 };
 
-const Comments = async ({ ticketId, paginatedComments }: CommentsProps) => {
-  const comments = paginatedComments.list;
+const Comments = ({ ticketId, paginatedComments }: CommentsProps) => {
+  const [comments, setComments] = useState(paginatedComments.list);
+  const [metadata, setMetadata] = useState(paginatedComments.metadata);
+
   const handleMore = async () => {
-    const morePaginatedComments = await getComments(ticketId);
+    const morePaginatedComments = await getComments(ticketId, comments.length);
     const moreComments = morePaginatedComments.list;
-    // Append moreComments to the existing comments
-    console.log(moreComments);
+    // Append moreComments to  the existing comments
+    setComments([...comments, ...moreComments]);
+    setMetadata(morePaginatedComments.metadata);
   };
   return (
     <>
@@ -49,9 +53,11 @@ const Comments = async ({ ticketId, paginatedComments }: CommentsProps) => {
         ))}
       </div>
       <div className="flex flex-col justify-center ml-8">
-        <Button variant="ghost" onClick={handleMore}>
-          More
-        </Button>
+        {metadata.hasNextPage && (
+          <Button variant="ghost" onClick={handleMore}>
+            More
+          </Button>
+        )}
       </div>
     </>
   );
