@@ -22,7 +22,7 @@ import { Button } from "./ui/button";
 
 type useConfirmDialogProps = {
   action: () => Promise<ActionState>;
-  trigger: React.ReactElement;
+  trigger: React.ReactElement | ((isLoading: boolean) => React.ReactElement);
   title?: string;
   description?: string;
   onSuccess?: (actionState: ActionState) => void;
@@ -37,13 +37,16 @@ const useConfirmDialog = ({
 }: useConfirmDialogProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const dialogTrigger = cloneElement(trigger, {
-    onClick: () => setIsOpen((state) => !state),
-  } as React.DOMAttributes<HTMLElement>);
-
   const [actionState, formAction, isPending] = useActionState(
     action,
     EMPTY_ACTION_STATE
+  );
+
+  const dialogTrigger = cloneElement(
+    typeof trigger === "function" ? trigger(isPending) : trigger,
+    {
+      onClick: () => setIsOpen((state) => !state),
+    } as React.DOMAttributes<HTMLElement>
   );
 
   const toastRef = useRef<string | number | null>(null);
