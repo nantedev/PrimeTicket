@@ -4,12 +4,12 @@ import { getAuth } from "@/features/auth/queries/get-auth";
 import { isOwner } from "@/features/auth/utils/is-owner";
 import { prisma } from "@/lib/prisma";
 
-export const getComments = async (ticketId: string, offset?: number, cursor?: number) => {
+export const getComments = async (ticketId: string, offset?: number, cursor?: string) => {
     const {user} = await getAuth();
     const where = { 
         ticketId, 
-        createdAt: {
-            lt: cursor ? new Date(cursor) : undefined
+        id: {
+            lt: cursor,
         }
     };
     const skip = offset ?? 0;
@@ -28,7 +28,7 @@ export const getComments = async (ticketId: string, offset?: number, cursor?: nu
             },
         },
         orderBy: {
-            createdAt: "desc"
+            id: "desc"
         }
     }),
         prisma.comment.count({ where }),
@@ -42,7 +42,7 @@ export const getComments = async (ticketId: string, offset?: number, cursor?: nu
         metadata: { 
             count, 
             hasNextPage: skip + take < count,
-            cursor: comments.at(-1)?.createdAt.valueOf(),
+            cursor: comments.at(-1)?.id,
         },  
     };
 };
