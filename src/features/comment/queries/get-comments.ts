@@ -4,9 +4,14 @@ import { getAuth } from "@/features/auth/queries/get-auth";
 import { isOwner } from "@/features/auth/utils/is-owner";
 import { prisma } from "@/lib/prisma";
 
-export const getComments = async (ticketId: string, offset?: number) => {
+export const getComments = async (ticketId: string, offset?: number, cursor?: number) => {
     const {user} = await getAuth();
-    const where = { ticketId };
+    const where = { 
+        ticketId, 
+        createdAt: {
+            lt: cursor ? new Date(cursor) : undefined
+        }
+    };
     const skip = offset ?? 0;
     const take = 2;
 
@@ -34,6 +39,10 @@ export const getComments = async (ticketId: string, offset?: number) => {
             ...comment,
             isOwner: isOwner(user, comment)
         })),
-        metadata: { count, hasNextPage: skip + take < count },  
+        metadata: { 
+            count, 
+            hasNextPage: skip + take < count,
+            cursor: comments.at(-1)?.createdAt.valueOf(),
+        },  
     };
 };
