@@ -16,7 +16,10 @@ type CommentsProps = {
     metadata: {
       count: number;
       hasNextPage: boolean;
-      cursor?: string;
+      cursor?: {
+        createdAt: number;
+        id: string;
+      };
     };
   };
 };
@@ -26,11 +29,7 @@ const Comments = ({ ticketId, paginatedComments }: CommentsProps) => {
   const [metadata, setMetadata] = useState(paginatedComments.metadata);
 
   const handleMore = async () => {
-    const morePaginatedComments = await getComments(
-      ticketId,
-      comments.length,
-      metadata.cursor
-    );
+    const morePaginatedComments = await getComments(ticketId, metadata.cursor);
     const moreComments = morePaginatedComments.list;
     // Append moreComments to  the existing comments
     setComments([...comments, ...moreComments]);
